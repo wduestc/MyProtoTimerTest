@@ -16,7 +16,7 @@ QTextCodec.setCodecForCStrings(QTextCodec.codecForName("system"))
 QTextCodec.setCodecForLocale(QTextCodec.codecForName("system"))
 
 """
-使用git进行提交
+使用git进行提交 同时提交GitHub
 """
 class MyProto(QtGui.QWidget):
     def __init__(self):
