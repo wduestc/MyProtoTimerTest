@@ -17,7 +17,7 @@ QTextCodec.setCodecForLocale(QTextCodec.codecForName("system"))
 
 """
 使用git进行提交
-"""w
+"""
 class MyProto(QtGui.QWidget):
     def __init__(self):
         super(MyProto, self).__init__()
@@ -81,15 +81,16 @@ class MyProto(QtGui.QWidget):
         grid.addWidget(self.readerAuthor,1, 0, 1, 10)
 
         #设置背景图案
-        """
+
         palette1 = QtGui.QPalette()
         #这里跟系统分辨率有关系
-        jpeg = QtGui.QPixmap("timg.jpg").scaled(1920, 1080)
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        jpeg = QtGui.QPixmap("timg.jpg").scaled(screen.width(), screen.height())
         #jpeg.load("test1.bmp")
         palette1.setBrush(self.backgroundRole(), QtGui.QBrush(jpeg))
         #palette1.setColor(self.backgroundRole(), QtGui.QBrush())
         self.setPalette(palette1)
-        """
+
         
         #self.setAutoFillBackground(True)
         self.setLayout(grid)
