@@ -81,7 +81,7 @@ class MyProto(QtGui.QWidget):
         grid.addWidget(self.readerAuthor,1, 0, 1, 10)
 
         #设置背景图案
-
+        """
         palette1 = QtGui.QPalette()
         #这里跟系统分辨率有关系
         screen = QtGui.QDesktopWidget().screenGeometry()
@@ -90,7 +90,7 @@ class MyProto(QtGui.QWidget):
         palette1.setBrush(self.backgroundRole(), QtGui.QBrush(jpeg))
         #palette1.setColor(self.backgroundRole(), QtGui.QBrush())
         self.setPalette(palette1)
-
+        """
         
         #self.setAutoFillBackground(True)
         self.setLayout(grid)
