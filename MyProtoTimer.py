@@ -17,7 +17,7 @@ QTextCodec.setCodecForLocale(QTextCodec.codecForName("system"))
 
 """
 使用git进行提交
-"""
+"""w
 class MyProto(QtGui.QWidget):
     def __init__(self):
         super(MyProto, self).__init__()
