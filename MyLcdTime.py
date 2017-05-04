@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: gb18030 -*-
 import sys
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
@@ -6,7 +6,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtCore import SIGNAL as signal
 
 
-#pyqt4ä¸­æ–‡åŒ–å¤„ç†
+#pyqt4ÖĞÎÄ»¯´¦Àí Ê¹ÓÃÄ¬ÈÏµÄ
 QTextCodec.setCodecForTr(QTextCodec.codecForName("system"))
 QTextCodec.setCodecForCStrings(QTextCodec.codecForName("system"))
 QTextCodec.setCodecForLocale(QTextCodec.codecForName("system"))
@@ -21,23 +21,34 @@ class LcdTime(QtGui.QFrame):
         self.timer = QtCore.QTimer()
         self.connect(self.timer, QtCore.SIGNAL('timeout()'), self.display)
         self.timer.start(1000)
-        #å»ºç«‹ä¸€ä¸ªæ‰˜ç›˜ç”¨äºç‰¹æ®Šå¤„ç†
-        #å®é™…ä¸Šåº”è¯¥é‡æ–°ç‚¹å‡»åé‡æ–°è¿›è¡Œè®¡æ—¶å¤„ç†
+        #½¨Á¢Ò»¸öÍĞÅÌÓÃÓÚÌØÊâ´¦Àí
+        #Êµ¼ÊÉÏÓ¦¸ÃÖØĞÂµã»÷ºóÖØĞÂ½øĞĞ¼ÆÊ±´¦Àí
         self.build_tray()
         self.resize(220, 100)
         self.central()
-        # è¾¹æ¡†é€æ˜
+        # ±ß¿òÍ¸Ã÷
         self.hour.setFrameShape(QtGui.QFrame.NoFrame)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.SubWindow | QtCore.Qt.WindowStaysOnTopHint)
-        # é€æ˜å¤„ç†ï¼Œç§»åŠ¨éœ€è¦æ‹–åŠ¨æ•°å­—
+        # Í¸Ã÷´¦Àí£¬ÒÆ¶¯ĞèÒªÍÏ¶¯Êı×Ö
         #self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
         self.setMouseTracking(True)
 
-        #è®¾ç½®å¼¹å‡ºèœå•
-        #è®¾ç½®ä¸€ä¸ªQuitçš„æ ‡ç­¾
+        #ÉèÖÃµ¯³ö²Ëµ¥
+        #ÉèÖÃÒ»¸öQuitµÄ±êÇ©
         quitAction = QtGui.QAction('&Quit', self)
         self.connect(quitAction, signal("triggered()"), QtGui.qApp.quit)
         setAction = QtGui.QAction('&Setting', self)
+        #Ìí¼Ó×Ó²Ëµ¥
+        scaleMenu = QtGui.QMenu()
+        setAction.setMenu(scaleMenu)
+        StartScaleAction = QtGui.QAction('&¿ªÊ¼',  self)
+        StopScaleAction = QtGui.QAction('&ÔİÍ£',   self)
+        EndScaleAction  = QtGui.QAction('&ÖÕÖ¹',   self)
+        scaleMenu.addAction(StartScaleAction)
+        scaleMenu.addAction(StopScaleAction)
+        scaleMenu.addAction(EndScaleAction)
+
+        #self.connect(setAction,  signal("triggered()"), self.scaleMenu)
         #backAction = QtGui.QAction('&Back', self)
         #self.connect(backAction, signal("triggered()"), self.backClicked)
         self.popMenu = QtGui.QMenu()
@@ -45,7 +56,7 @@ class LcdTime(QtGui.QFrame):
         self.popMenu.addAction(setAction)
         #self.popMenu.addAction(backAction)
 
-    #é¼ æ ‡ç‚¹å‡»äº‹ä»¶
+    #Êó±êµã»÷ÊÂ¼ş
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
@@ -58,30 +69,31 @@ class LcdTime(QtGui.QFrame):
             self.move(event.globalPos() - self.dragPosition)
             event.accept()
 
-    #é¼ æ ‡å³é”®äº‹ä»¶
+    #Êó±êÓÒ¼üÊÂ¼ş
     def mouseReleaseEvent(self, e):
         if self.rightButton == True:
             self.rightButton = False
             self.popMenu.popup(e.globalPos())
 
+    #´´½¨×Ó²Ëµ¥
 
-    #ç³»ç»Ÿæ‰˜ç›˜,éœ€è¦logo.png
+    #ÏµÍ³ÍĞÅÌ,ĞèÒªlogo.png
     def build_tray(self):
         self.trayIcon = QtGui.QSystemTrayIcon(self)
         self.trayIcon.setIcon(QtGui.QIcon('logo.png'))
         self.trayIcon.show()
-        self.trayIcon.setToolTip('æ—¶é’Ÿ -LiKui')
+        self.trayIcon.setToolTip('Ê±ÖÓ -LiKui')
         self.trayIcon.activated.connect(self.trayClick)
         menu = QtGui.QMenu()
-        normalAction = menu.addAction('æ­£å¸¸æ˜¾ç¤º'.decode("utf-8").encode("gb18030"))
-        miniAction = menu.addAction('æœ€å°åŒ–æ‰˜ç›˜'.decode("utf-8").encode("gb18030"))
-        exitAction = menu.addAction('é€€å‡º'.decode("utf-8").encode("gb18030"))
+        normalAction = menu.addAction('Õı³£ÏÔÊ¾')
+        miniAction = menu.addAction('×îĞ¡»¯ÍĞÅÌ')
+        exitAction = menu.addAction('ÍË³ö')
         normalAction.triggered.connect(self.showNormal)
         exitAction.triggered.connect(self.exit)
         miniAction.triggered.connect(self.showMinimized)
         self.trayIcon.setContextMenu(menu)
     def exit(self):
-        # ä¸è®¾ç½®Visibleä¸ºFalseï¼Œé€€å‡ºåTrayIconä¸ä¼šåˆ·æ–°
+        # ²»ÉèÖÃVisibleÎªFalse£¬ÍË³öºóTrayIcon²»»áË¢ĞÂ
         self.trayIcon.setVisible(False)
         sys.exit(0)
     def trayClick(self, reason):
