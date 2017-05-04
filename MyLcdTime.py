@@ -70,7 +70,7 @@ class LcdTime(QtGui.QFrame):
         self.trayIcon = QtGui.QSystemTrayIcon(self)
         self.trayIcon.setIcon(QtGui.QIcon('logo.png'))
         self.trayIcon.show()
-        self.trayIcon.setToolTip('时钟 -LiKui')
+        self.trayIcon.setToolTip('Clock')
         self.trayIcon.activated.connect(self.trayClick)
         menu = QtGui.QMenu()
         normalAction = menu.addAction('正常显示'.decode("utf-8").encode("gb18030"))
